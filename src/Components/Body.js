@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, {withPromotedLabel} from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
@@ -20,6 +20,8 @@ const Body = () => {
 		setRestaurantData(data);
 		setFilterRestaurant(data);
 	}
+
+	const PromotedRestaurantCard = withPromotedLabel(RestaurantCard);
 
 	// Conditional renderring data
 	// if(restaurantData.length === 0){
@@ -63,7 +65,12 @@ const Body = () => {
 				</div>
 				<div className="cardConatiner">
 					{filterRestaurant.map((restaurant) => (
-						<Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id }><RestaurantCard resData={restaurant} /></Link>
+						<Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id }>
+							{
+								restaurant.info.isOpen ? (<PromotedRestaurantCard resData={restaurant} />) : (<RestaurantCard resData={restaurant} />)
+							}
+							
+						</Link>
 					))}
 				</div>
 			</div>
