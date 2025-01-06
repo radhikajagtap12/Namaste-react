@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import {LOGO} from "../Utils/constants";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/userContext";
 
 
 const Header = () =>{ 
@@ -12,6 +13,9 @@ const Header = () =>{
     // if dependancy array is not empty then useEffect is called everytime when the dependancy array changes. 
     useEffect(()=>{
     }, [])
+
+    const {loggedInUser} = useContext(UserContext);
+    console.log(loggedInUser);
 
     const isOnline = useOnlineStatus(); // Check if user is online or offline
     
@@ -32,7 +36,8 @@ const Header = () =>{
                         <li><Link to="/grocery">Grocery</Link></li>
                         <li><button onClick={() => setLoginBtn(
                             loginBtn === "Login"? "Logout" : "Login"  // toggle login/logout button text
-                        )} className="login">{loginBtn}</button></li>
+                        )} className="login p-0 m-0">{loginBtn}</button></li>
+                        <li className="font-bold">{loggedInUser}</li>
                     </ul>
                 </div>
             </div>

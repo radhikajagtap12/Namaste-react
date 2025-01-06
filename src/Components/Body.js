@@ -1,8 +1,8 @@
 import RestaurantCard, {withPromotedLabel} from "./RestaurantCard";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
-
+import UserContext from "../utils/userContext";
 const Body = () => {
 	const [restaurantData, setRestaurantData] = useState([]);
 	const [filterRestaurant, setFilterRestaurant] = useState([]);
@@ -27,6 +27,8 @@ const Body = () => {
 	// if(restaurantData.length === 0){
 	// 	return <Shimmer />
 	// }
+
+	const {loggedInUser, setUserName} = useContext(UserContext)
 
 	// whenever state variable updates, react triggers a reconstruction cycle(rerenders component)
 
@@ -62,6 +64,11 @@ const Body = () => {
 						}}>
 						Top rated restaurants
 					</button>
+					<div className="flex items-center">
+						<label className="mr-8">Name</label>
+						<input className="border-black" value={loggedInUser}
+						onChange={(e) => setUserName(e.target.value)}/>
+					</div>
 				</div>
 				<div className="cardConatiner">
 					{filterRestaurant.map((restaurant) => (
